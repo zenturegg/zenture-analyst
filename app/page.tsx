@@ -485,10 +485,31 @@ function Matches({ matches, setMatches, squads }: { matches: Match[]; setMatches
     notes: "",
   });
 
-  function add() {
-    const points = Number(form.kills) + placementPoints(Number(form.placement));
-    setMatches([{ id: String(Date.now()), ...form, points, round: Number(form.round), placement: Number(form.placement), kills: Number(form.kills) }, ...matches]);
+  async function add() {
+  const points = Number(form.kills) + placementPoints(Number(form.placement));
+
+  const newMatch = {
+    ...form,
+    points,
+    round: Number(form.round),
+    placement: Number(form.placement),
+    kills: Number(form.kills),
+  };
+
+  const { data, error } = await supabase
+    .from("matches")
+    .insert(newMatch)
+    .select()
+    .single();
+
+  if (error) {
+    alert("Erro ao salvar partida no Supabase");
+    console.log(error);
+    return;
   }
+
+  setMatches([data as Match, ...matches]);
+}
 
   function remove(id: string) {
     if (confirm("Apagar esta partida?")) setMatches(matches.filter(m => m.id !== id));
