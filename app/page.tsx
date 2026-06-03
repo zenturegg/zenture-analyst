@@ -1,14 +1,17 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import {
+import { createClient } from "@supabase/supabase-js";
   BarChart3, Upload, Trophy, Users, CalendarDays, LogOut, Plus, Trash2,
   ShieldCheck, Swords, Save, Loader2, Image as ImageIcon, PencilLine, Database
 } from "lucide-react";
 import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, BarChart, Bar
 } from "recharts";
-
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 type Squad = {
   id: string;
   name: string;
