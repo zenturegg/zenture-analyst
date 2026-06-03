@@ -182,15 +182,22 @@ function Login({ onLogin }: { onLogin: () => void }) {
   const [pass, setPass] = useState("");
   const [error, setError] = useState("");
 
-  function submit(e: React.FormEvent) {
-    e.preventDefault();
-    const envUser = process.env.NEXT_PUBLIC_APP_USER || "zenture";
-    const envPass = process.env.NEXT_PUBLIC_APP_PASS || "ZNT2026";
-    if (user === envUser && pass === envPass) {
-      localStorage.setItem(STORAGE_AUTH, "true");
-      onLogin();
-    } else {
-      setError("Usuário ou senha incorretos.");
+  async function submit(e: React.FormEvent) {
+  e.preventDefault();
+
+  const { data } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("name", user)
+    .single();
+
+  if (data && data.role === pass) {
+    localStorage.setItem(STORAGE_AUTH, "true");
+    onLogin();
+  } else {
+    setError("Usuário ou senha incorretos.");
+  }
+
     }
   }
 
