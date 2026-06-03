@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --znt-blue: #0057FF;
+  --znt-dark: #05070D;
+  --znt-card: #0B0F1A;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--znt-dark);
+  color: white;
+}
+
+.grid-bg {
+  background-image:
+    radial-gradient(circle at top right, rgba(0,87,255,.18), transparent 30%),
+    linear-gradient(rgba(0,87,255,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,87,255,.07) 1px, transparent 1px);
+  background-size: auto, 42px 42px, 42px 42px;
+}
+
+.glow {
+  box-shadow: 0 0 40px rgba(0,87,255,.22);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
