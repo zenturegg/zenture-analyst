@@ -203,7 +203,11 @@ function Login({ onLogin }: { onLogin: () => void }) {
     <main className="min-h-screen grid-bg flex items-center justify-center p-4">
       <form onSubmit={submit} className="w-full max-w-md bg-zntCard border border-zntBlue/25 rounded-3xl p-8 glow">
         <div className="w-16 h-16 bg-zntBlue rounded-2xl flex items-center justify-center mb-6 glow">
-          <Swords size={32} />
+<img
+  src="/logo-zenture.png.png"
+  alt="Zenture"
+  className="w-10 h-10 object-contain"
+/>
         </div>
 
         <h1 className="text-4xl font-black">Zenture Analyst</h1>
