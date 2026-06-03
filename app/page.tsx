@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import {
   BarChart3, Upload, Trophy, Users, CalendarDays, LogOut, Plus, Trash2,
   ShieldCheck, Swords, Save, Loader2, Image as ImageIcon, PencilLine, Database
 } from "lucide-react";
