@@ -183,21 +183,19 @@ function Login({ onLogin }: { onLogin: () => void }) {
   const [error, setError] = useState("");
 
   async function submit(e: React.FormEvent) {
-  e.preventDefault();
+    e.preventDefault();
 
-  const { data } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("name", user)
-    .single();
+    const { data } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("name", user)
+      .single();
 
-  if (data && data.role === pass) {
-    localStorage.setItem(STORAGE_AUTH, "true");
-    onLogin();
-  } else {
-    setError("Usuário ou senha incorretos.");
-  }
-
+    if (data && data.role === pass) {
+      localStorage.setItem(STORAGE_AUTH, "true");
+      onLogin();
+    } else {
+      setError("Usuário ou senha incorretos.");
     }
   }
 
@@ -207,14 +205,15 @@ function Login({ onLogin }: { onLogin: () => void }) {
         <div className="w-16 h-16 bg-zntBlue rounded-2xl flex items-center justify-center mb-6 glow">
           <Swords size={32} />
         </div>
+
         <h1 className="text-4xl font-black">Zenture Analyst</h1>
         <p className="text-white/55 mt-2 mb-8">Entre para acessar o painel de análise Free Fire.</p>
 
         <label className="text-sm text-white/60">Usuário</label>
-        <input value={user} onChange={(e) => setUser(e.target.value)} className="w-full mt-2 mb-4 bg-black/40 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-zntBlue" />
+        <input value={user} onChange={(e) => setUser(e.target.value)} className="w-full mt-2 mb-4 bg-black/40 border border-white/10 rounded-xl px-4 py-3" />
 
         <label className="text-sm text-white/60">Senha</label>
-        <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} placeholder="ZNT2026" className="w-full mt-2 mb-4 bg-black/40 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-zntBlue" />
+        <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} placeholder="ZNT2026" className="w-full mt-2 mb-4 bg-black/40 border border-white/10 rounded-xl px-4 py-3" />
 
         {error && <p className="text-red-300 text-sm mb-4">{error}</p>}
 
@@ -224,7 +223,6 @@ function Login({ onLogin }: { onLogin: () => void }) {
     </main>
   );
 }
-
 function Dashboard({ matches, squads }: { matches: Match[]; squads: Squad[] }) {
   const totalKills = matches.reduce((a, b) => a + Number(b.kills || 0), 0);
   const totalPoints = matches.reduce((a, b) => a + Number(b.points || 0), 0);
