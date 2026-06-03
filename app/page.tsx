@@ -178,7 +178,7 @@ export default function App() {
 }
 
 function Login({ onLogin }: { onLogin: () => void }) {
-  const [user, setUser] = useState("zenture");
+  const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const [error, setError] = useState("");
 
@@ -213,7 +213,7 @@ function Login({ onLogin }: { onLogin: () => void }) {
         <input value={user} onChange={(e) => setUser(e.target.value)} className="w-full mt-2 mb-4 bg-black/40 border border-white/10 rounded-xl px-4 py-3" />
 
         <label className="text-sm text-white/60">Senha</label>
-        <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} placeholder="ZNT2026" className="w-full mt-2 mb-4 bg-black/40 border border-white/10 rounded-xl px-4 py-3" />
+        <input type="password" value={pass} onChange={(e) => setPass(e.target.value)}  className="w-full mt-2 mb-4 bg-black/40 border border-white/10 rounded-xl px-4 py-3" />
 
         {error && <p className="text-red-300 text-sm mb-4">{error}</p>}
 
