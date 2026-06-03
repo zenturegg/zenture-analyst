@@ -218,7 +218,7 @@ function Login({ onLogin }: { onLogin: () => void }) {
         {error && <p className="text-red-300 text-sm mb-4">{error}</p>}
 
         <button className="w-full bg-zntBlue rounded-xl py-3 font-black glow">Entrar</button>
-        <p className="text-xs text-white/35 mt-5">Login padrão: zenture / ZNT2026</p>
+       
       </form>
     </main>
   );
