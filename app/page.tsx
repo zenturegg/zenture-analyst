@@ -415,11 +415,30 @@ function Ranking({ matches, squads }: { matches: Match[]; squads: Squad[] }) {
 function Squads({ squads, setSquads }: { squads: Squad[]; setSquads: (s: Squad[]) => void }) {
   const [form, setForm] = useState({ name: "", tag: "", players: "" });
 
-  function add() {
-    if (!form.name.trim()) return;
-    setSquads([...squads, { id: String(Date.now()), ...form }]);
-    setForm({ name: "", tag: "", players: "" });
+async function add() {
+  if (!form.name.trim()) return;
+
+  const newSquad = {
+    name: form.name,
+    tag: form.tag,
+    players: form.players,
+  };
+
+  const { data, error } = await supabase
+    .from("squads")
+    .insert(newSquad)
+    .select()
+    .single();
+
+  if (error) {
+    alert("Erro ao salvar squad no Supabase");
+    console.log(error);
+    return;
   }
+
+  setSquads([...squads, data as Squad]);
+  setForm({ name: "", tag: "", players: "" });
+}
 
   function remove(id: string) {
     if (confirm("Remover este squad?")) setSquads(squads.filter(s => s.id !== id));
