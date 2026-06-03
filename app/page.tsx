@@ -78,18 +78,25 @@ export default function App() {
   const [matches, setMatches] = useState<Match[]>(defaultMatches);
 
   useEffect(() => {
-    setLogged(localStorage.getItem(STORAGE_AUTH) === "true");
-    setSquads(safeLoad(STORAGE_SQUADS, defaultSquads));
-    setMatches(safeLoad(STORAGE_MATCHES, defaultMatches));
-  }, []);
+  setLogged(localStorage.getItem(STORAGE_AUTH) === "true");
 
-  useEffect(() => {
-    if (typeof window !== "undefined") localStorage.setItem(STORAGE_SQUADS, JSON.stringify(squads));
-  }, [squads]);
+  async function loadData() {
+    const { data: squadsData } = await supabase
+      .from("squads")
+      .select("*")
+      .order("name", { ascending: true });
 
-  useEffect(() => {
-    if (typeof window !== "undefined") localStorage.setItem(STORAGE_MATCHES, JSON.stringify(matches));
-  }, [matches]);
+    const { data: matchesData } = await supabase
+      .from("matches")
+      .select("*")
+      .order("date", { ascending: true });
+
+    if (squadsData) setSquads(squadsData as Squad[]);
+    if (matchesData) setMatches(matchesData as Match[]);
+  }
+
+  loadData();
+}, []);
 
   function logout() {
     localStorage.removeItem(STORAGE_AUTH);
