@@ -191,7 +191,7 @@ function Login({ onLogin }: { onLogin: () => void }) {
       .eq("name", user)
       .single();
 
-    if (data && data.role === pass) {
+    if (data && data.password === pass) {
       localStorage.setItem(STORAGE_AUTH, "true");
       onLogin();
     } else {
