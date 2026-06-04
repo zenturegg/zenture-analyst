@@ -197,13 +197,13 @@ function Login({ onLogin }: { onLogin: () => void }) {
 if (user === "Jhordanlhp" && pass === "ZNT@2026!Admin") {
   localStorage.setItem(STORAGE_AUTH, "true");
   localStorage.setItem("role", "admin");
-  onLogin();
+  window.location.reload();
   return;
 }
 if (user === "membros" && pass === "zenture2026") {
   localStorage.setItem(STORAGE_AUTH, "true");
   localStorage.setItem("role", "member");
-  onLogin();
+  window.location.reload();
   return;
 }
 
