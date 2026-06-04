@@ -436,10 +436,18 @@ function Ranking({ matches, squads }: { matches: Match[]; squads: Squad[] }) {
       kills: ms.reduce((a,b)=>a+b.kills,0),
       matches: ms.length,
       avg: ms.length ? Math.round(ms.reduce((a,b)=>a+b.points,0) / ms.length) : 0
+      aproveitamento: ms.length
+  ? Math.min(
+      100,
+      Math.round(
+        ((ms.reduce((a,b)=>a+b.points,0) / ms.length) / 20) * 100
+      )
+    )
+  : 0
     };
   }).sort((a,b)=>b.points-a.points);
 
-  return <Table heads={["#", "Squad", "Tag", "Pontos", "Kills", "Partidas", "Média"]} rows={ranking.map((r,i)=>[String(i+1), r.squad, r.tag, String(r.points), String(r.kills), String(r.matches), String(r.avg)])} />;
+return <Table heads={["#", "Squad", "Tag", "Pontos", "Kills", "Partidas", "Média", "Aprov. %"]} rows={ranking.map((r,i)=>[String(i+1), r.squad, r.tag, String(r.points), String(r.kills), String(r.matches), String(r.avg), String(r.aproveitamento) + "%"])} />
 }
 
 function Squads({ squads, setSquads, isAdmin }: { squads: Squad[]; setSquads: (s: Squad[]) => void; isAdmin: boolean }) {
