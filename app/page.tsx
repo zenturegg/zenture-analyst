@@ -107,14 +107,19 @@ export default function App() {
 
   if (!logged) return <Login onLogin={() => setLogged(true)} />;
 
-  const menu = [
-    ["dashboard", "Dashboard", BarChart3],
-    ["upload", "Ler Print", Upload],
-    ["ranking", "Ranking", Trophy],
-    ["squads", "Squads", Users],
-    ["partidas", "Partidas", CalendarDays],
-    ["backup", "Backup", Database],
-  ] as const;
+const menu = [
+  ["dashboard", "Dashboard", BarChart3],
+  ["ranking", "Ranking", Trophy],
+  ["squads", "Squads", Users],
+  ["partidas", "Partidas", CalendarDays],
+
+  ...(isAdmin
+    ? [
+        ["upload", "Ler Print", Upload],
+        ["backup", "Backup", Database],
+      ]
+    : []),
+] as const;
 
   return (
     <main className="min-h-screen grid-bg">
