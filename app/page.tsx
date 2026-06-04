@@ -77,6 +77,7 @@ export default function App() {
   const [page, setPage] = useState("dashboard");
   const [squads, setSquads] = useState<Squad[]>(defaultSquads);
   const [matches, setMatches] = useState<Match[]>(defaultMatches);
+  
 const isAdmin = role === "admin";
   useEffect(() => {
   setRole(localStorage.getItem("role") || "");
