@@ -450,7 +450,7 @@ campeonatos: new Set(ms.map(m => m.championship)).size,
     };
   }).sort((a,b)=>b.points-a.points);
 
-return <Table heads={["#", "Squad", "Tag", "Pontos", "Kills", "Partidas", "Média", "Aprov. %"]} rows={ranking.map((r,i)=>[String(i+1), r.squad, r.tag, String(r.points), String(r.kills), String(r.matches), String(r.avg), String(r.aproveitamento) + "%"])} />
+return <Table heads={["#", "Squad", "Tag", "Pontos", "Kills", "Partidas", "Média", "Aprov. %", "TOP 1", "TOP 3", "Camp."]} rows={ranking.map((r,i)=>[String(i+1), r.squad, r.tag, String(r.points), String(r.kills), String(r.matches), String(r.avg), String(r.aproveitamento) + "%", String(r.top1), String(r.top3), String(r.campeonatos)])} />
 }
 
 function Squads({ squads, setSquads, isAdmin }: { squads: Squad[]; setSquads: (s: Squad[]) => void; isAdmin: boolean }) {
