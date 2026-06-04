@@ -100,11 +100,12 @@ export default function App() {
   loadData();
 }, []);
 
-  function logout() {
-    localStorage.removeItem(STORAGE_AUTH);
-    setLogged(false);
-  }
-
+function logout() {
+  localStorage.removeItem(STORAGE_AUTH);
+  localStorage.removeItem("role");
+  setRole("");
+  setLogged(false);
+}
   if (!logged) return <Login onLogin={() => setLogged(true)} />;
 
 const menu = [
