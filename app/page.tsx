@@ -239,16 +239,31 @@ function Dashboard({ matches, squads }: { matches: Match[]; squads: Squad[] }) {
   const totalKills = matches.reduce((a, b) => a + Number(b.kills || 0), 0);
   const totalPoints = matches.reduce((a, b) => a + Number(b.points || 0), 0);
   const avgPoints = matches.length ? Math.round(totalPoints / matches.length) : 0;
+const avgKills = matches.length
+  ? Math.round(totalKills / matches.length)
+  : 0;
 
+const avgPlacement = matches.length
+  ? (matches.reduce((a, b) => a + Number(b.placement || 0), 0) / matches.length).toFixed(1)
+  : 0;
+
+const booyahs = matches.filter(m => Number(m.placement) === 1).length;
+
+const top3 = matches.filter(m => Number(m.placement) <= 3).length;
   const chart = matches.slice().reverse().map((m) => ({ rodada: "R" + m.round, pontos: m.points, kills: m.kills }));
 
   return (
     <div className="space-y-6">
       <div className="grid md:grid-cols-4 gap-4">
-        <Card title="Squads cadastrados" value={squads.length} />
-        <Card title="Partidas analisadas" value={matches.length} />
-        <Card title="Kills totais" value={totalKills} />
-        <Card title="Média de pontos" value={avgPoints} />
+<Card title="Squads cadastrados" value={squads.length} />
+<Card title="Partidas analisadas" value={matches.length} />
+<Card title="Kills totais" value={totalKills} />
+<Card title="Média de pontos" value={avgPoints} />
+
+<Card title="Média de kills" value={avgKills} />
+<Card title="Média colocação" value={avgPlacement} />
+<Card title="Booyahs" value={booyahs} />
+<Card title="Top 3" value={top3} />
       </div>
 
       <div className="grid xl:grid-cols-2 gap-6">
