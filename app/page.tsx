@@ -594,7 +594,13 @@ function Matches({ matches, setMatches, squads, isAdmin }: { matches: Match[]; s
                 <td className="p-4">TOP {m.placement}</td>
                 <td className="p-4">{m.kills}</td>
                 <td className="p-4 font-black text-zntBlue">{m.points}</td>
-                <td className="p-4"><button onClick={()=>remove(m.id)} className="text-white/40 hover:text-red-300"><Trash2 size={18}/></button></td>
+               <td className="p-4">
+  {isAdmin && (
+    <button onClick={()=>remove(m.id)} className="text-white/40 hover:text-red-300">
+      <Trash2 size={18}/>
+    </button>
+  )}
+</td>
               </tr>
             ))}
           </tbody>
