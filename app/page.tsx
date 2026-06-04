@@ -511,10 +511,22 @@ function Matches({ matches, setMatches, squads }: { matches: Match[]; setMatches
   setMatches([data as Match, ...matches]);
 }
 
-  function remove(id: string) {
-    if (confirm("Apagar esta partida?")) setMatches(matches.filter(m => m.id !== id));
+ async function remove(id: string) {
+  if (!confirm("Apagar esta partida?")) return;
+
+  const { error } = await supabase
+    .from("matches")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    alert("Erro ao apagar partida");
+    console.log(error);
+    return;
   }
 
+  setMatches(matches.filter(m => m.id !== id));
+}
   return (
     <div className="space-y-6">
       <Panel title="Adicionar partida manualmente">
