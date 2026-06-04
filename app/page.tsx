@@ -178,7 +178,7 @@ const menu = [
           {page === "upload" && <UploadPage squads={squads} onAdd={(m) => setMatches([m, ...matches])} />}
           {page === "ranking" && <Ranking matches={matches} squads={squads} />}
 {page === "squads" && <Squads squads={squads} setSquads={setSquads} isAdmin={isAdmin} />}
-          {page === "partidas" && <Matches matches={matches} setMatches={setMatches} squads={squads} />}
+          {page === "partidas" && <Matches matches={matches} setMatches={setMatches} squads={squads} isAdmin={isAdmin} />}
           {page === "backup" && <Backup squads={squads} matches={matches} setSquads={setSquads} setMatches={setMatches} />}
         </section>
       </div>
@@ -502,7 +502,7 @@ async function add() {
   );
 }
 
-function Matches({ matches, setMatches, squads }: { matches: Match[]; setMatches: (m: Match[]) => void; squads: Squad[] }) {
+function Matches({ matches, setMatches, squads, isAdmin }: { matches: Match[]; setMatches: (m: Match[]) => void; squads: Squad[]; isAdmin: boolean }) {
   const [form, setForm] = useState({
     championship: "Treino modo liga",
     date: new Date().toISOString().slice(0, 10),
