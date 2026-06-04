@@ -201,6 +201,7 @@ function Login({ onLogin }: { onLogin: () => void }) {
     console.log(data);
     if (data && data.password === pass) {
       localStorage.setItem(STORAGE_AUTH, "true");
+      localStorage.setItem("role", data.role);
       onLogin();
     } else {
       setError("Usuário ou senha incorretos.");
