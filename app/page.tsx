@@ -244,7 +244,7 @@ const avgKills = matches.length
   : 0;
 
 const avgPlacement = matches.length
-  ? (matches.reduce((a, b) => a + Number(b.placement || 0), 0) / matches.length).toFixed(1)
+  ? (matches.reduce((a, b) => a + Number(b.placement || 0), 0) / matches.length)
   : 0;
 
 const booyahs = matches.filter(m => Number(m.placement) === 1).length;
