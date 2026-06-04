@@ -435,7 +435,7 @@ function Ranking({ matches, squads }: { matches: Match[]; squads: Squad[] }) {
       points: ms.reduce((a,b)=>a+b.points,0),
       kills: ms.reduce((a,b)=>a+b.kills,0),
       matches: ms.length,
-      avg: ms.length ? Math.round(ms.reduce((a,b)=>a+b.points,0) / ms.length) : 0
+      avg: ms.length ? Math.round(ms.reduce((a,b)=>a+b.points,0) / ms.length) : 0,
       aproveitamento: ms.length
   ? Math.min(
       100,
