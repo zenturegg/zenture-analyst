@@ -693,7 +693,7 @@ function Backup({ squads, matches, setSquads, setMatches }: { squads: Squad[]; m
   );
 }
 
-function Card({ title, value }: { title: string; value: number }) {
+function Card({ title, value }: { title: string; value: number | string })
   return (
     <div className="bg-zntCard border border-zntBlue/20 rounded-3xl p-5">
       <p className="text-white/50 text-sm">{title}</p>
