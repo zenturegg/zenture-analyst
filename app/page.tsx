@@ -193,7 +193,12 @@ function Login({ onLogin }: { onLogin: () => void }) {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-
+if (user === "Jhordanlhp" && pass === "ZNT@2026!Admin") {
+  localStorage.setItem(STORAGE_AUTH, "true");
+  localStorage.setItem("role", "admin");
+  onLogin();
+  return;
+}
 if (user === "membros" && pass === "zenture2026") {
   localStorage.setItem(STORAGE_AUTH, "true");
   localStorage.setItem("role", "member");
