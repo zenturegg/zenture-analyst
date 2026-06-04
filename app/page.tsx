@@ -390,8 +390,8 @@ if (zentureLine) {
     placement = nums[0];
     kills = nums[nums.length - 2];
     points = nums[nums.length - 1];
-  } else if (nums.length >= 2) {
-    kills = nums[0];
+  } else if (nums.length === 2) {
+    placement = nums[0];
     points = nums[1];
   }
 
