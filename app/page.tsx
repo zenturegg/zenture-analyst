@@ -369,15 +369,48 @@ function UploadPage({ squads, onAdd }: { squads: Squad[]; onAdd: (m: Match) => v
       const text = result.data.text || "";
       setOcrText(text);
 
-      const numbers = text.match(/\d+/g)?.map(Number) || [];
-      const possibleKills = numbers.find(n => n >= 0 && n <= 40);
-      const possiblePlacement = numbers.find(n => n >= 1 && n <= 12);
-      setForm(f => ({
-        ...f,
-        kills: possibleKills ?? f.kills,
-        placement: possiblePlacement ?? f.placement,
-        notes: text.slice(0, 400)
-      }));
+      const lines = text
+  .split("\n")
+  .map(l => l.trim())
+  .filter(Boolean);
+
+const zentureLine = lines.find(l =>
+  l.toUpperCase().includes("ZENTURE")
+);
+
+let placement = form.placement;
+let kills = form.kills;
+let points = Number(form.kills) + placementPoints(Number(form.placement));
+let squad = form.squad;
+
+if (zentureLine) {
+  const nums = zentureLine.match(/\d+/g)?.map(Number) || [];
+
+  if (nums.length >= 3) {
+    placement = nums[0];
+    kills = nums[nums.length - 2];
+    points = nums[nums.length - 1];
+  } else if (nums.length >= 2) {
+    kills = nums[0];
+    points = nums[1];
+  }
+
+  const matchedSquad = squads.find(s =>
+    zentureLine.toUpperCase().includes(s.name.toUpperCase())
+  );
+
+  if (matchedSquad) {
+    squad = matchedSquad.name;
+  }
+}
+
+setForm(f => ({
+  ...f,
+  squad,
+  kills,
+  placement,
+  notes: text.slice(0, 500)
+}));
     } catch (e) {
       setOcrText("Não foi possível ler o print. Você ainda pode preencher manualmente.");
     } finally {
