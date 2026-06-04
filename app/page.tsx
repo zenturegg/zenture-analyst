@@ -73,11 +73,13 @@ function safeLoad<T>(key: string, fallback: T): T {
 
 export default function App() {
   const [logged, setLogged] = useState(false);
+  const [role, setRole] = useState("");
   const [page, setPage] = useState("dashboard");
   const [squads, setSquads] = useState<Squad[]>(defaultSquads);
   const [matches, setMatches] = useState<Match[]>(defaultMatches);
-
+const isAdmin = role === "admin";
   useEffect(() => {
+  setRole(localStorage.getItem("role") || "");
   setLogged(localStorage.getItem(STORAGE_AUTH) === "true");
 
   async function loadData() {
