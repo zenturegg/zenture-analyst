@@ -464,7 +464,8 @@ async function add() {
 
   return (
     <div className="space-y-6">
-      <Panel title="Cadastrar squad">
+{isAdmin && (
+<Panel title="Cadastrar squad">
         <div className="grid md:grid-cols-3 gap-4">
           <Input label="Nome do squad" value={form.name} onChange={(v)=>setForm({...form, name:v})} />
           <Input label="Tag" value={form.tag} onChange={(v)=>setForm({...form, tag:v})} />
@@ -472,7 +473,7 @@ async function add() {
         </div>
         <button onClick={add} className="mt-5 bg-zntBlue px-5 py-3 rounded-xl font-black flex gap-2 items-center"><Plus size={18}/>Adicionar squad</button>
       </Panel>
-
+)}
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
         {squads.map(s => (
           <div key={s.id} className="bg-zntCard border border-zntBlue/20 rounded-3xl p-5">
