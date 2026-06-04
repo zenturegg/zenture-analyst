@@ -300,7 +300,7 @@ const maisTop1 = statsPorSquad.sort((a,b)=>b.top1-a.top1)[0];
 <Card title="Média colocação" value={avgPlacement} />
 <Card title="Booyahs" value={booyahs} />
 <Card title="Top 3" value={top3} />
-<Card title="Melhor line" value={melhorLine?.squad || "-"} />
+<Card title="Melhor line" value={melhorLine?.squad ? String(melhorLine.squad) : "-"} />
 <Card title="Maior aproveitamento" value={maiorAproveitamento ? maiorAproveitamento.aproveitamento + "%" : "0%"} />
 <Card title="Line com mais TOP 1" value={maisTop1?.squad || "-"} />        
       </div>
