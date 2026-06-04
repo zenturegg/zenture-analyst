@@ -265,6 +265,27 @@ const avgPlacement = matches.length
 const booyahs = matches.filter(m => Number(m.placement) === 1).length;
 
 const top3 = matches.filter(m => Number(m.placement) <= 3).length;
+  const statsPorSquad = squads.map(s => {
+  const ms = matches.filter(m => m.squad === s.name);
+  const pontos = ms.reduce((a,b)=>a + Number(b.points || 0), 0);
+  const kills = ms.reduce((a,b)=>a + Number(b.kills || 0), 0);
+  const aproveitamento = ms.length
+    ? Math.min(100, Math.round(((pontos / ms.length) / 20) * 100))
+    : 0;
+
+  return {
+    squad: s.name,
+    pontos,
+    kills,
+    partidas: ms.length,
+    top1: ms.filter(m => Number(m.placement) === 1).length,
+    aproveitamento
+  };
+});
+
+const melhorLine = statsPorSquad.sort((a,b)=>b.pontos-a.pontos)[0];
+const maiorAproveitamento = statsPorSquad.sort((a,b)=>b.aproveitamento-a.aproveitamento)[0];
+const maisTop1 = statsPorSquad.sort((a,b)=>b.top1-a.top1)[0];
   const chart = matches.slice().reverse().map((m) => ({ rodada: "R" + m.round, pontos: m.points, kills: m.kills }));
 
   return (
@@ -279,6 +300,9 @@ const top3 = matches.filter(m => Number(m.placement) <= 3).length;
 <Card title="Média colocação" value={avgPlacement} />
 <Card title="Booyahs" value={booyahs} />
 <Card title="Top 3" value={top3} />
+<Card title="Melhor line" value={melhorLine?.squad || "-"} />
+<Card title="Maior aproveitamento" value={maiorAproveitamento ? maiorAproveitamento.aproveitamento + "%" : "0%"} />
+<Card title="Line com mais TOP 1" value={maisTop1?.squad || "-"} />        
       </div>
 
       <div className="grid xl:grid-cols-2 gap-6">
