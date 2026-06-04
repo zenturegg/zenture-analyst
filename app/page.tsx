@@ -488,7 +488,11 @@ async function add() {
                 <h3 className="text-xl font-black">{s.name}</h3>
                 <p className="text-zntBlue font-bold">{s.tag}</p>
               </div>
-              <button onClick={()=>remove(s.id)} className="text-white/40 hover:text-red-300"><Trash2 size={18}/></button>
+              {isAdmin && (
+  <button onClick={() => remove(s.id)} className="text-white/40 hover:text-red-300">
+    <Trash2 size={18}/>
+  </button>
+)}
             </div>
             <p className="text-white/55 mt-4">{s.players || "Sem jogadores cadastrados"}</p>
           </div>
@@ -554,6 +558,7 @@ function Matches({ matches, setMatches, squads }: { matches: Match[]; setMatches
 }
   return (
     <div className="space-y-6">
+{isAdmin && (      
       <Panel title="Adicionar partida manualmente">
         <div className="grid md:grid-cols-4 gap-4">
           <Input label="Campeonato" value={form.championship} onChange={(v)=>setForm({...form, championship:v})}/>
@@ -570,7 +575,7 @@ function Matches({ matches, setMatches, squads }: { matches: Match[]; setMatches
         </div>
         <button onClick={add} className="mt-5 bg-zntBlue px-5 py-3 rounded-xl font-black flex gap-2 items-center"><Plus size={18}/>Salvar partida</button>
       </Panel>
-
+)}
       <div className="bg-zntCard border border-zntBlue/20 rounded-3xl overflow-auto">
         <table className="w-full text-left">
           <thead>
