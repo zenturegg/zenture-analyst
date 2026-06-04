@@ -177,7 +177,7 @@ export default function App() {
           {page === "dashboard" && <Dashboard matches={matches} squads={squads} />}
           {page === "upload" && <UploadPage squads={squads} onAdd={(m) => setMatches([m, ...matches])} />}
           {page === "ranking" && <Ranking matches={matches} squads={squads} />}
-          {page === "squads" && <Squads squads={squads} setSquads={setSquads} />}
+{page === "squads" && <Squads squads={squads} setSquads={setSquads} isAdmin={isAdmin} />}
           {page === "partidas" && <Matches matches={matches} setMatches={setMatches} squads={squads} />}
           {page === "backup" && <Backup squads={squads} matches={matches} setSquads={setSquads} setMatches={setMatches} />}
         </section>
@@ -430,7 +430,7 @@ function Ranking({ matches, squads }: { matches: Match[]; squads: Squad[] }) {
   return <Table heads={["#", "Squad", "Tag", "Pontos", "Kills", "Partidas", "Média"]} rows={ranking.map((r,i)=>[String(i+1), r.squad, r.tag, String(r.points), String(r.kills), String(r.matches), String(r.avg)])} />;
 }
 
-function Squads({ squads, setSquads }: { squads: Squad[]; setSquads: (s: Squad[]) => void }) {
+function Squads({ squads, setSquads, isAdmin }: { squads: Squad[]; setSquads: (s: Squad[]) => void; isAdmin: boolean }) {
   const [form, setForm] = useState({ name: "", tag: "", players: "" });
 
 async function add() {
