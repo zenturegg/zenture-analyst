@@ -109,16 +109,11 @@ export default function App() {
 
 const menu = [
   ["dashboard", "Dashboard", BarChart3],
+  ...(isAdmin ? [["upload", "Ler Print", Upload] as const] : []),
   ["ranking", "Ranking", Trophy],
   ["squads", "Squads", Users],
   ["partidas", "Partidas", CalendarDays],
-
-  ...(isAdmin
-    ? [
-        ["upload", "Ler Print", Upload],
-        ["backup", "Backup", Database],
-      ]
-    : []),
+  ...(isAdmin ? [["backup", "Backup", Database] as const] : []),
 ] as const;
 
   return (
