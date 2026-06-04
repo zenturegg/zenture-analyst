@@ -538,9 +538,22 @@ async function add() {
   setForm({ name: "", tag: "", players: "" });
 }
 
-  function remove(id: string) {
-    if (confirm("Remover este squad?")) setSquads(squads.filter(s => s.id !== id));
+  async function remove(id: string) {
+  if (!confirm("Remover este squad?")) return;
+
+  const { error } = await supabase
+    .from("squads")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    alert("Erro ao remover squad no Supabase");
+    console.log(error);
+    return;
   }
+
+  setSquads(squads.filter(s => s.id !== id));
+}
 
   return (
     <div className="space-y-6">
