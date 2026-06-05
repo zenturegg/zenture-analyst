@@ -322,8 +322,15 @@ const maisTop1 = statsPorSquad.sort((a,b)=>b.top1-a.top1)[0];
   </select>
 </div>
       <div className="grid md:grid-cols-4 gap-4">
-<Card title="Squads cadastrados" value={squads.length} />
-<Card title="Partidas analisadas" value={matches.length} />
+<Card
+  title={selectedSquad === "GERAL" ? "Squads cadastrados" : "Squad selecionada"}
+  value={selectedSquad === "GERAL" ? squads.length : 1}
+/>
+
+<Card
+  title="Partidas analisadas"
+  value={dashboardMatches.length}
+/>
 <Card title="Kills totais" value={totalKills} />
 <Card title="Média de pontos" value={avgPoints} />
 
