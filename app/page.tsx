@@ -306,6 +306,21 @@ const maisTop1 = statsPorSquad.sort((a,b)=>b.top1-a.top1)[0];
 }));
   return (
     <div className="space-y-6">
+      <div className="mb-4">
+  <select
+    value={selectedSquad}
+    onChange={(e) => setSelectedSquad(e.target.value)}
+    className="bg-black/40 border border-zntBlue/30 rounded-xl px-4 py-2 text-white"
+  >
+    <option value="GERAL">📊 Dashboard Geral</option>
+
+    {squads.map((s) => (
+      <option key={s.id} value={s.name}>
+        {s.name}
+      </option>
+    ))}
+  </select>
+</div>
       <div className="grid md:grid-cols-4 gap-4">
 <Card title="Squads cadastrados" value={squads.length} />
 <Card title="Partidas analisadas" value={matches.length} />
