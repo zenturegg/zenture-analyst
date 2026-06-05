@@ -118,7 +118,10 @@ const menu = [
 ] as const;
 
   return (
-    <main className="min-h-screen grid-bg">
+   <main
+  className="min-h-screen bg-cover bg-center bg-fixed"
+  style={{ backgroundImage: "url('/zenture-bg.png')" }}
+>
       <div className="flex min-h-screen">
         <aside className="hidden lg:flex w-72 border-r border-zntBlue/20 bg-black/35 p-5 flex-col">
           <div className="flex items-center gap-3 mb-10">
