@@ -374,10 +374,6 @@ function UploadPage({ squads, onAdd }: { squads: Squad[]; onAdd: (m: Match) => v
   .map(l => l.trim())
   .filter(Boolean);
 
-const zentureLine = lines.find(l =>
-  l.toUpperCase().includes("ZENTURE")
-);
-
 let placement = form.placement;
 let kills = form.kills;
 let squad = form.squad;
