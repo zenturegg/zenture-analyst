@@ -380,8 +380,29 @@ const zentureLine = lines.find(l =>
 
 let placement = form.placement;
 let kills = form.kills;
-let points = Number(form.kills) + placementPoints(Number(form.placement));
 let squad = form.squad;
+
+const normalizar = (v: string) =>
+  v.toUpperCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^A-Z0-9 ]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const textoNormal = normalizar(text);
+
+const matchedSquad = squads.find(s =>
+  textoNormal.includes(normalizar(s.name))
+);
+
+const zentureLine = lines.find(l =>
+  normalizar(l).includes("ZENTURE")
+);
+
+if (matchedSquad) {
+  squad = matchedSquad.name;
+}
 
 if (zentureLine) {
   const nums = zentureLine.match(/\d+/g)?.map(Number) || [];
@@ -389,18 +410,8 @@ if (zentureLine) {
   if (nums.length >= 3) {
     placement = nums[0];
     kills = nums[nums.length - 2];
-    points = nums[nums.length - 1];
   } else if (nums.length === 2) {
     placement = nums[0];
-    points = nums[1];
-  }
-
-  const matchedSquad = squads.find(s =>
-    zentureLine.toUpperCase().includes(s.name.toUpperCase())
-  );
-
-  if (matchedSquad) {
-    squad = matchedSquad.name;
   }
 }
 
