@@ -258,11 +258,18 @@ if (data && data.password === pass) {
 }
 function Dashboard({ matches, squads }: { matches: Match[]; squads: Squad[] }) {
   const [selectedSquad, setSelectedSquad] = useState("GERAL");
+const [selectedDate, setSelectedDate] = useState(
+  new Date().toISOString().slice(0, 10)
+);
+const dashboardMatches = matches.filter((m) => {
+  const squadOk =
+    selectedSquad === "GERAL" || m.squad === selectedSquad;
 
-const dashboardMatches =
-  selectedSquad === "GERAL"
-    ? matches
-    : matches.filter(m => m.squad === selectedSquad);
+  const dateOk =
+    !selectedDate || m.date === selectedDate;
+
+  return squadOk && dateOk;
+});
 
 const totalKills = dashboardMatches.reduce((a, b) => a + Number(b.kills || 0), 0);
 const totalPoints = dashboardMatches.reduce((a, b) => a + Number(b.points || 0), 0);
@@ -306,7 +313,7 @@ const maisTop1 = statsPorSquad.sort((a,b)=>b.top1-a.top1)[0];
 }));
   return (
     <div className="space-y-6">
-      <div className="mb-4">
+      <div className="mb-4 flex flex-col md:flex-row gap-3">
   <select
     value={selectedSquad}
     onChange={(e) => setSelectedSquad(e.target.value)}
@@ -320,6 +327,20 @@ const maisTop1 = statsPorSquad.sort((a,b)=>b.top1-a.top1)[0];
       </option>
     ))}
   </select>
+
+  <input
+    type="date"
+    value={selectedDate}
+    onChange={(e) => setSelectedDate(e.target.value)}
+    className="bg-black/40 border border-zntBlue/30 rounded-xl px-4 py-2 text-white"
+  />
+
+  <button
+    onClick={() => setSelectedDate("")}
+    className="bg-black/40 border border-zntBlue/30 rounded-xl px-4 py-2 text-white"
+  >
+    Todas as datas
+  </button>
 </div>
       <div className="grid md:grid-cols-4 gap-4">
 <Card
