@@ -226,7 +226,10 @@ if (data && data.password === pass) {
   }
 
   return (
-    <main className="min-h-screen grid-bg flex items-center justify-center p-4">
+    <main
+  className="min-h-screen bg-cover bg-center bg-fixed"
+  style={{ backgroundImage: "url('/zenture-bg.png')" }}
+>
       <form onSubmit={submit} className="w-full max-w-md bg-zntCard border border-zntBlue/25 rounded-3xl p-8 glow">
         <div className="w-16 h-16 bg-zntBlue rounded-2xl flex items-center justify-center mb-6 glow">
 <img
