@@ -239,8 +239,8 @@ if (data && data.password === pass) {
 />
         </div>
 
-        <h1 className="text-4xl font-black">Zenture Analyst</h1>
-        <p className="text-white/55 mt-2 mb-8">Entre para acessar o painel de análise Free Fire.</p>
+        <h1 className="text-4xl font-black">Painel Analítico Zenture</h1>
+        <p className="text-white/55 mt-2 mb-8">Bem vindo ao Painel da Tropa da Z!.</p>
 
         <label className="text-sm text-white/60">Usuário</label>
         <input value={user} onChange={(e) => setUser(e.target.value)} className="w-full mt-2 mb-4 bg-black/40 border border-white/10 rounded-xl px-4 py-3" />
