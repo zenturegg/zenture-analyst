@@ -284,7 +284,6 @@ const avgPlacement = dashboardMatches.length
   : 0;
 
 const booyahs = dashboardMatches.filter(m => Number(m.placement) === 1).length;
-const top3 = dashboardMatches.filter(m => Number(m.placement) <= 3).length;
   const statsPorSquad = squads.map(s => {
   const ms = dashboardMatches.filter(m => m.squad === s.name);
   const pontos = ms.reduce((a,b)=>a + Number(b.points || 0), 0);
@@ -358,7 +357,6 @@ const maisTop1 = statsPorSquad.sort((a,b)=>b.top1-a.top1)[0];
 <Card title="Média de kills" value={avgKills} />
 <Card title="Média colocação" value={avgPlacement} />
 <Card title="Booyahs" value={booyahs} />
-<Card title="Top 3" value={top3} />
 <Card title="Melhor line" value={melhorLine?.squad ? String(melhorLine.squad) : "-"} />
 <Card title="Maior aproveitamento" value={maiorAproveitamento ? maiorAproveitamento.aproveitamento + "%" : "0%"} />
 <Card title="Line com mais TOP 1" value={maisTop1?.squad || "-"} />        
