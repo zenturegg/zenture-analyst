@@ -257,22 +257,29 @@ if (data && data.password === pass) {
   );
 }
 function Dashboard({ matches, squads }: { matches: Match[]; squads: Squad[] }) {
-  const totalKills = matches.reduce((a, b) => a + Number(b.kills || 0), 0);
-  const totalPoints = matches.reduce((a, b) => a + Number(b.points || 0), 0);
-  const avgPoints = matches.length ? Math.round(totalPoints / matches.length) : 0;
-const avgKills = matches.length
-  ? Math.round(totalKills / matches.length)
+  const [selectedSquad, setSelectedSquad] = useState("GERAL");
+
+const dashboardMatches =
+  selectedSquad === "GERAL"
+    ? matches
+    : matches.filter(m => m.squad === selectedSquad);
+
+const totalKills = dashboardMatches.reduce((a, b) => a + Number(b.kills || 0), 0);
+const totalPoints = dashboardMatches.reduce((a, b) => a + Number(b.points || 0), 0);
+const avgPoints = dashboardMatches.length ? Math.round(totalPoints / dashboardMatches.length) : 0;
+
+const avgKills = dashboardMatches.length
+  ? Math.round(totalKills / dashboardMatches.length)
   : 0;
 
-const avgPlacement = matches.length
-  ? (matches.reduce((a, b) => a + Number(b.placement || 0), 0) / matches.length)
+const avgPlacement = dashboardMatches.length
+  ? Math.round(dashboardMatches.reduce((a, b) => a + Number(b.placement || 0), 0) / dashboardMatches.length)
   : 0;
 
-const booyahs = matches.filter(m => Number(m.placement) === 1).length;
-
-const top3 = matches.filter(m => Number(m.placement) <= 3).length;
+const booyahs = dashboardMatches.filter(m => Number(m.placement) === 1).length;
+const top3 = dashboardMatches.filter(m => Number(m.placement) <= 3).length;
   const statsPorSquad = squads.map(s => {
-  const ms = matches.filter(m => m.squad === s.name);
+  const ms = dashboardMatches.filter(m => m.squad === s.name);
   const pontos = ms.reduce((a,b)=>a + Number(b.points || 0), 0);
   const kills = ms.reduce((a,b)=>a + Number(b.kills || 0), 0);
   const aproveitamento = ms.length
@@ -292,8 +299,11 @@ const top3 = matches.filter(m => Number(m.placement) <= 3).length;
 const melhorLine = statsPorSquad.sort((a,b)=>b.pontos-a.pontos)[0];
 const maiorAproveitamento = statsPorSquad.sort((a,b)=>b.aproveitamento-a.aproveitamento)[0];
 const maisTop1 = statsPorSquad.sort((a,b)=>b.top1-a.top1)[0];
-  const chart = matches.slice().reverse().map((m) => ({ rodada: "R" + m.round, pontos: m.points, kills: m.kills }));
-
+  const chart = dashboardMatches.slice().reverse().map((m) => ({
+  rodada: "R" + m.round,
+  pontos: m.points,
+  kills: m.kills
+}));
   return (
     <div className="space-y-6">
       <div className="grid md:grid-cols-4 gap-4">
