@@ -288,9 +288,23 @@ const booyahs = dashboardMatches.filter(m => Number(m.placement) === 1).length;
   const ms = dashboardMatches.filter(m => m.squad === s.name);
   const pontos = ms.reduce((a,b)=>a + Number(b.points || 0), 0);
   const kills = ms.reduce((a,b)=>a + Number(b.kills || 0), 0);
-  const aproveitamento = ms.length
-    ? Math.min(100, Math.round(((pontos / ms.length) / 20) * 100))
-    : 0;
+  const top1Count = ms.filter(m => Number(m.placement) === 1).length;
+
+const top1Rate = ms.length
+  ? (top1Count / ms.length) * 100
+  : 0;
+
+const avgPointsRate = ms.length
+  ? Math.min(100, ((pontos / ms.length) / 20) * 100)
+  : 0;
+
+const avgKillsRate = ms.length
+  ? Math.min(100, ((kills / ms.length) / 10) * 100)
+  : 0;
+
+const aproveitamento = ms.length
+  ? Math.round((top1Rate * 0.5) + (avgPointsRate * 0.3) + (avgKillsRate * 0.2))
+  : 0;
 
   return {
     squad: s.name,
