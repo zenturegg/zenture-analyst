@@ -681,7 +681,7 @@ function Matches({ matches, setMatches, squads, isAdmin }: { matches: Match[]; s
   const newMatch = {
     ...form,
     points,
-    round: Number(form.round),
+    round: 1,
     placement: Number(form.placement),
     kills: Number(form.kills),
   };
