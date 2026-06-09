@@ -113,7 +113,7 @@ const menu = [
   ...(isAdmin ? [["upload", "Ler Print", Upload] as const] : []),
   ["ranking", "Ranking", Trophy],
   ["squads", "Squads", Users],
-  ["partidas", "Partidas", CalendarDays],
+  ["partidas", "Tabelas", CalendarDays],
   ...(isAdmin ? [["backup", "Backup", Database] as const] : []),
 ] as const;
 
@@ -362,7 +362,7 @@ const maisTop1 = statsPorSquad.sort((a,b)=>b.top1-a.top1)[0];
 />
 
 <Card
-  title="Partidas analisadas"
+  title="Tabelas analisadas"
   value={dashboardMatches.length}
 />
 <Card title="Kills totais" value={totalKills} />
@@ -540,7 +540,7 @@ setForm(f => ({
           <Input label="Campeonato/Treino" value={form.championship} onChange={(v) => setForm({ ...form, championship: v })} />
           <Input label="Data" type="date" value={form.date} onChange={(v) => setForm({ ...form, date: v })} />
           <Select label="Mapa" value={form.map} onChange={(v) => setForm({ ...form, map: v })} options={["Bermuda", "Purgatório", "Kalahari", "Alpine", "Nexterra"]} />
-          <Input label="Rodada" type="number" value={form.round} onChange={(v) => setForm({ ...form, round: Number(v) })} />
+          <Input label="Rodada="number" value={form.round} onChange={(v) => setForm({ ...form, round: Number(v) })} />
           <Select label="Squad" value={form.squad} onChange={(v) => setForm({ ...form, squad: v })} options={squads.map(s => s.name)} />
           <Input label="Colocação" type="number" value={form.placement} onChange={(v) => setForm({ ...form, placement: Number(v) })} />
           <Input label="Kills" type="number" value={form.kills} onChange={(v) => setForm({ ...form, kills: Number(v) })} />
@@ -724,7 +724,7 @@ function Matches({ matches, setMatches, squads, isAdmin }: { matches: Match[]; s
   return (
     <div className="space-y-6">
 {isAdmin && (      
-      <Panel title="Adicionar partida manualmente">
+      <Panel title="Adicionar resultado da tabela">
         <div className="grid md:grid-cols-4 gap-4">
           <Input label="Campeonato" value={form.championship} onChange={(v)=>setForm({...form, championship:v})}/>
           <Input label="Data" type="date" value={form.date} onChange={(v)=>setForm({...form, date:v})}/>
@@ -738,7 +738,7 @@ function Matches({ matches, setMatches, squads, isAdmin }: { matches: Match[]; s
             <p className="text-2xl font-black text-zntBlue">{Number(form.kills) + placementPoints(Number(form.placement))}</p>
           </div>
         </div>
-        <button onClick={add} className="mt-5 bg-zntBlue px-5 py-3 rounded-xl font-black flex gap-2 items-center"><Plus size={18}/>Salvar partida</button>
+        <button onClick={add} className="mt-5 bg-zntBlue px-5 py-3 rounded-xl font-black flex gap-2 items-center"><Plus size={18}/>Salvar resultado</button>
       </Panel>
 )}
       <div className="bg-zntCard border border-zntBlue/20 rounded-3xl overflow-auto">
