@@ -510,7 +510,7 @@ setForm(f => ({
       points,
       notes: form.notes,
     });
-    alert("Partida salva no histórico e ranking atualizado.");
+    alert("Resultado salvo no histórico e ranking atualizado.")
   }
 
   return (
