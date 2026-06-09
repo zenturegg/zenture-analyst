@@ -43,9 +43,9 @@ const defaultSquads: Squad[] = [
 ];
 
 const defaultMatches: Match[] = [
-  { id: "m1", championship: "Treino modo liga", date: "2026-06-03", map: "Bermuda", round: 1, squad: "Zenture GG", placement: 2, kills: 9, points: 18 },
-  { id: "m2", championship: "Treino modo liga", date: "2026-06-03", map: "Purgatório", round: 2, squad: "Zenture GG", placement: 1, kills: 11, points: 23 },
-  { id: "m3", championship: "Copa Nobru", date: "2026-06-03", map: "Kalahari", round: 3, squad: "Line Feminina", placement: 4, kills: 6, points: 13 },
+  { id: "m1", championship: "Treino modo liga", date: "2026-06-03", time: "20:00", map: "Bermuda", round: 1, squad: "Zenture GG", placement: 2, kills: 9, points: 18 },
+  { id: "m2", championship: "Treino modo liga", date: "2026-06-03", time: "20:00", map: "Purgatório", round: 2, squad: "Zenture GG", placement: 1, kills: 11, points: 23 },
+  { id: "m3", championship: "Copa Nobru", date: "2026-06-03", time: "20:00", map: "Kalahari", round: 3, squad: "Line Feminina", placement: 4, kills: 6, points: 13 },
 ];
 
 function placementPoints(place: number) {
