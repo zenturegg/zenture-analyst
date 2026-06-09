@@ -23,8 +23,7 @@ type Match = {
   id: string;
   championship: string;
   date: string;
-  map: string;
-  round: number;
+  time: string;
   squad: string;
   placement: number;
   kills: number;
@@ -415,7 +414,7 @@ function UploadPage({ squads, onAdd }: { squads: Squad[]; onAdd: (m: Match) => v
   const [progress, setProgress] = useState(0);
   const [form, setForm] = useState({
     championship: "Treino modo liga",
-    date: new Date().toISOString().slice(0, 10),
+    date: new Date().toLocaleDateString("en-CA", { timeZone: "America/Sao_Paulo" }),
     time: "",
     squad: squads[0]?.name || "",
     placement: 1,
@@ -501,13 +500,14 @@ setForm(f => ({
       id: String(Date.now()),
       championship: form.championship,
       date: form.date,
+      time: form.time,
       map: "Não informado",
       round: 1,
       squad: form.squad,
       placement: Number(form.placement),
       kills: Number(form.kills),
       points,
-      notes: form.notes,
+      notes: `Horário: ${form.time} | ${form.notes}`,
     });
     alert("Resultado salvo no histórico e ranking atualizado.")
   }
@@ -722,7 +722,7 @@ function Matches({ matches, setMatches, squads, isAdmin }: { matches: Match[]; s
 {isAdmin && (      
       <Panel title="Adicionar resultado da tabela">
         <div className="grid md:grid-cols-4 gap-4">
-          <Input label="Campeonato" value={form.championship} onChange={(v)=>setForm({...form, championship:v})}/>
+          <Input label="Nome do treino" value={form.championship} onChange={(v)=>setForm({...form, championship:v})}/>
           <Input label="Data" type="date" value={form.date} onChange={(v)=>setForm({...form, date:v})}/>
           <Input label="Horário do treino" type="time" value={form.time} onChange={(v) => setForm({ ...form, time: v })} />
           <Select label="Squad" value={form.squad} onChange={(v)=>setForm({...form, squad:v})} options={squads.map(s=>s.name)}/>
@@ -740,16 +740,15 @@ function Matches({ matches, setMatches, squads, isAdmin }: { matches: Match[]; s
         <table className="w-full text-left">
           <thead>
             <tr className="border-b border-white/10 text-white/55">
-              {["Data","Camp.","Mapa","Rodada","Squad","TOP","Kills","Pontos",""].map(h=><th key={h} className="p-4 whitespace-nowrap">{h}</th>)}
+              {["Data","Horário","Treino","Squad","TOP","Kills","Pontos"].map(h=><th key={h} className="p-4 whitespace-nowrap">{h}</th>)}
             </tr>
           </thead>
           <tbody>
             {matches.map(m=>(
               <tr key={m.id} className="border-b border-white/5 hover:bg-zntBlue/10">
                 <td className="p-4">{m.date}</td>
+                <td className="p-4">{m.time || "-"}</td>
                 <td className="p-4">{m.championship}</td>
-                <td className="p-4">{m.map}</td>
-                <td className="p-4">R{m.round}</td>
                 <td className="p-4">{m.squad}</td>
                 <td className="p-4">TOP {m.placement}</td>
                 <td className="p-4">{m.kills}</td>
