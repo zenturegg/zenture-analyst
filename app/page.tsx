@@ -24,6 +24,8 @@ type Match = {
   championship: string;
   date: string;
   time: string;
+  map: string;
+  round: number;
   squad: string;
   placement: number;
   kills: number;
