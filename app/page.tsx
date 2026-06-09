@@ -580,7 +580,6 @@ function Ranking({ matches, squads }: { matches: Match[]; squads: Squad[] }) {
     )
   : 0,
       top1: ms.filter(m => Number(m.placement) === 1).length,
-top3: ms.filter(m => Number(m.placement) <= 3).length,
 campeonatos: new Set(ms.map(m => m.championship)).size,
     };
   }).sort((a,b)=>b.points-a.points);
