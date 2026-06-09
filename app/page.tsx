@@ -540,7 +540,7 @@ setForm(f => ({
           <Input label="Campeonato/Treino" value={form.championship} onChange={(v) => setForm({ ...form, championship: v })} />
           <Input label="Data" type="date" value={form.date} onChange={(v) => setForm({ ...form, date: v })} />
           <Select label="Mapa" value={form.map} onChange={(v) => setForm({ ...form, map: v })} options={["Bermuda", "Purgatório", "Kalahari", "Alpine", "Nexterra"]} />
-          <Input label="Rodada="number" value={form.round} onChange={(v) => setForm({ ...form, round: Number(v) })} />
+          <Input label="Tabela nº" type="number" value={form.round} onChange={(v) => setForm({ ...form, round: Number(v) })} />
           <Select label="Squad" value={form.squad} onChange={(v) => setForm({ ...form, squad: v })} options={squads.map(s => s.name)} />
           <Input label="Colocação" type="number" value={form.placement} onChange={(v) => setForm({ ...form, placement: Number(v) })} />
           <Input label="Kills" type="number" value={form.kills} onChange={(v) => setForm({ ...form, kills: Number(v) })} />
@@ -554,7 +554,7 @@ setForm(f => ({
         <textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} className="w-full h-28 bg-black/35 border border-white/10 rounded-xl p-3 outline-none focus:border-zntBlue" />
 
         <button onClick={save} className="mt-5 bg-zntBlue px-6 py-3 rounded-xl font-black glow flex items-center gap-2">
-          <Save size={18} /> Salvar partida
+          <Save size={18} /> Salvar resultado
         </button>
       </Panel>
     </div>
