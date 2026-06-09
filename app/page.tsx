@@ -416,8 +416,7 @@ function UploadPage({ squads, onAdd }: { squads: Squad[]; onAdd: (m: Match) => v
   const [form, setForm] = useState({
     championship: "Treino modo liga",
     date: new Date().toISOString().slice(0, 10),
-    map: "Bermuda",
-    round: 1,
+    time: "",
     squad: squads[0]?.name || "",
     placement: 1,
     kills: 0,
@@ -502,8 +501,8 @@ setForm(f => ({
       id: String(Date.now()),
       championship: form.championship,
       date: form.date,
-      map: form.map,
-      round: Number(form.round),
+      map: "Não informado",
+      round: 1,
       squad: form.squad,
       placement: Number(form.placement),
       kills: Number(form.kills),
@@ -537,10 +536,9 @@ setForm(f => ({
 
       <Panel title="Confirmar dados da partida">
         <div className="grid md:grid-cols-2 gap-4">
-          <Input label="Campeonato/Treino" value={form.championship} onChange={(v) => setForm({ ...form, championship: v })} />
+          <Input label="Nome do treino" value={form.championship} onChange={(v) => setForm({ ...form, championship: v })} />
           <Input label="Data" type="date" value={form.date} onChange={(v) => setForm({ ...form, date: v })} />
-          <Select label="Mapa" value={form.map} onChange={(v) => setForm({ ...form, map: v })} options={["Bermuda", "Purgatório", "Kalahari", "Alpine", "Nexterra"]} />
-          <Input label="Tabela nº" type="number" value={form.round} onChange={(v) => setForm({ ...form, round: Number(v) })} />
+          <Input label="Horário do treino" type="time" value={form.time} onChange={(v) => setForm({ ...form, time: v })} />
           <Select label="Squad" value={form.squad} onChange={(v) => setForm({ ...form, squad: v })} options={squads.map(s => s.name)} />
           <Input label="Colocação" type="number" value={form.placement} onChange={(v) => setForm({ ...form, placement: Number(v) })} />
           <Input label="Kills" type="number" value={form.kills} onChange={(v) => setForm({ ...form, kills: Number(v) })} />
