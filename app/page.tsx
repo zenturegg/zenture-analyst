@@ -725,8 +725,7 @@ function Matches({ matches, setMatches, squads, isAdmin }: { matches: Match[]; s
         <div className="grid md:grid-cols-4 gap-4">
           <Input label="Campeonato" value={form.championship} onChange={(v)=>setForm({...form, championship:v})}/>
           <Input label="Data" type="date" value={form.date} onChange={(v)=>setForm({...form, date:v})}/>
-          <Select label="Mapa" value={form.map} onChange={(v)=>setForm({...form, map:v})} options={["Bermuda", "Purgatório", "Kalahari", "Alpine", "Nexterra"]}/>
-          <Input label="Rodada" type="number" value={form.round} onChange={(v)=>setForm({...form, round:Number(v)})}/>
+          <Input label="Horário do treino" type="time" value={form.time} onChange={(v) => setForm({ ...form, time: v })} />
           <Select label="Squad" value={form.squad} onChange={(v)=>setForm({...form, squad:v})} options={squads.map(s=>s.name)}/>
           <Input label="Colocação" type="number" value={form.placement} onChange={(v)=>setForm({...form, placement:Number(v)})}/>
           <Input label="Kills" type="number" value={form.kills} onChange={(v)=>setForm({...form, kills:Number(v)})}/>
