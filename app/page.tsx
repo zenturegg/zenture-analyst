@@ -668,8 +668,7 @@ function Matches({ matches, setMatches, squads, isAdmin }: { matches: Match[]; s
   const [form, setForm] = useState({
     championship: "Treino modo liga",
     date: new Date().toISOString().slice(0, 10),
-    map: "Bermuda",
-    round: 1,
+    time: "",
     squad: squads[0]?.name || "",
     placement: 1,
     kills: 0,
