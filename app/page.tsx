@@ -589,9 +589,39 @@ return <Table heads={["#", "Squad", "Tag", "Pontos", "Kills", "Partidas", "Médi
 
 function Squads({ squads, setSquads, isAdmin }: { squads: Squad[]; setSquads: (s: Squad[]) => void; isAdmin: boolean }) {
   const [form, setForm] = useState({ name: "", tag: "", players: "" });
+  const [editingId, setEditingId] = useState<string | null>(null);
 
 async function add() {
   if (!form.name.trim()) return;
+  
+  if (editingId) {
+  const { error } = await supabase
+    .from("squads")
+    .update({
+      name: form.name,
+      tag: form.tag,
+      players: form.players,
+    })
+    .eq("id", editingId);
+
+  if (error) {
+    alert("Erro ao atualizar squad");
+    return;
+  }
+
+  setSquads(
+    squads.map(s =>
+      s.id === editingId
+        ? { ...s, name: form.name, tag: form.tag, players: form.players }
+        : s
+    )
+  );
+
+  setEditingId(null);
+  setForm({ name: "", tag: "", players: "" });
+
+  return;
+}
 
   const newSquad = {
     name: form.name,
@@ -633,12 +663,14 @@ async function add() {
 }
   
 function edit(s: Squad) {
+  setEditingId(s.id);
   setForm({
     name: s.name,
     tag: s.tag,
     players: s.players,
   });
 }
+  
   return (
     <div className="space-y-6">
 {isAdmin && (
