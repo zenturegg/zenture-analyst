@@ -631,7 +631,14 @@ async function add() {
 
   setSquads(squads.filter(s => s.id !== id));
 }
-
+  
+function edit(s: Squad) {
+  setForm({
+    name: s.name,
+    tag: s.tag,
+    players: s.players,
+  });
+}
   return (
     <div className="space-y-6">
 {isAdmin && (
@@ -653,9 +660,23 @@ async function add() {
                 <p className="text-zntBlue font-bold">{s.tag}</p>
               </div>
               {isAdmin && (
-  <button onClick={() => remove(s.id)} className="text-white/40 hover:text-red-300">
-    <Trash2 size={18}/>
-  </button>
+  <div className="flex gap-3">
+    <button
+      onClick={() => edit(s)}
+      className="text-white/40 hover:text-zntBlue"
+      title="Editar squad"
+    >
+      ✏️
+    </button>
+
+    <button
+      onClick={() => remove(s.id)}
+      className="text-white/40 hover:text-red-300"
+      title="Apagar squad"
+    >
+      <Trash2 size={18}/>
+    </button>
+  </div>
 )}
             </div>
             <p className="text-white/55 mt-4">{s.players || "Sem jogadores cadastrados"}</p>
