@@ -755,7 +755,27 @@ function Matches({ matches, setMatches, squads, isAdmin }: { matches: Match[]; s
 
   setMatches([data as Match, ...matches]);
 }
+  
+async function removeAll() {
+  if (!confirm("APAGAR TODAS AS PARTIDAS?")) return;
 
+  if (!confirm("Tem certeza absoluta?")) return;
+
+  const { error } = await supabase
+    .from("matches")
+    .delete()
+    .neq("id", "");
+
+  if (error) {
+    alert("Erro ao apagar partidas");
+    console.log(error);
+    return;
+  }
+
+  setMatches([]);
+  alert("Todas as partidas foram apagadas!");
+}
+  
  async function remove(id: string) {
   if (!confirm("Apagar esta partida?")) return;
 
@@ -789,6 +809,14 @@ function Matches({ matches, setMatches, squads, isAdmin }: { matches: Match[]; s
           </div>
         </div>
         <button onClick={add} className="mt-5 bg-zntBlue px-5 py-3 rounded-xl font-black flex gap-2 items-center"><Plus size={18}/>Salvar resultado</button>
+        {isAdmin && (
+  <button
+    onClick={removeAll}
+    className="bg-red-600 px-5 py-3 rounded-xl font-black flex gap-2 items-center mt-3"
+  >
+    🗑 Apagar Tudo
+  </button>
+)}
       </Panel>
 )}
       <div className="bg-zntCard border border-zntBlue/20 rounded-3xl overflow-auto">
