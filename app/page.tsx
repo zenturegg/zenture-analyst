@@ -571,12 +571,12 @@ function Ranking({ matches, squads }: { matches: Match[]; squads: Squad[] }) {
       kills: ms.reduce((a,b)=>a+b.kills,0),
       matches: ms.length,
       avg: ms.length ? Math.round(ms.reduce((a,b)=>a+b.points,0) / ms.length) : 0,
-      aproveitamento: ms.length ?
-   Math.min(
-      100,
-      Math.round(
-        ((ms.reduce((a,b)=>a+b.points,0) / ms.length) / 20) * 100
-      )
+      aproveitamento: ms.length
+  ? Math.round(
+      (
+        ms.reduce((a,b)=>a+b.points,0) /
+        (ms.length * 24)
+      ) * 100
     )
   : 0,
       top1: ms.filter(m => Number(m.placement) === 1).length,
