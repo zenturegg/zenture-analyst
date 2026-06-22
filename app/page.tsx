@@ -764,7 +764,7 @@ async function removeAll() {
   const { error } = await supabase
     .from("matches")
     .delete()
-    .neq("id", "");
+    .not("id", "is", null)
 
   if (error) {
     alert("Erro ao apagar partidas");
