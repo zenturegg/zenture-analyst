@@ -630,10 +630,17 @@ async function add() {
   };
 
   const { data, error } = await supabase
-    .from("squads")
-    .insert(newSquad)
-    .select()
-    .single();
+  .from("squads")
+  .update({
+    name: form.name,
+    tag: form.tag,
+    players: form.players,
+  })
+  .eq("id", editingId)
+  .select();
+
+console.log("UPDATE DATA:", data);
+console.log("UPDATE ERROR:", error);
 
   if (error) {
     alert("Erro ao salvar squad no Supabase");
