@@ -637,7 +637,8 @@ async function add() {
     players: form.players,
   })
   .eq("id", editingId)
-  .select();
+  .select()
+  .single();
 
 console.log("UPDATE DATA:", data);
 console.log("UPDATE ERROR:", error);
