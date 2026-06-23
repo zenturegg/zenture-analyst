@@ -666,6 +666,8 @@ async function add() {
 }
   
 function edit(s: Squad) {
+  console.log("EDITANDO ID:", s.id);
+  
   setEditingId(s.id);
   setForm({
     name: s.name,
