@@ -575,7 +575,7 @@ function Ranking({ matches, squads }: { matches: Match[]; squads: Squad[] }) {
   ? Math.round(
       (
         ms.reduce((a,b)=>a+b.points,0) /
-        (ms.length * 24)
+        (ms.length * 60)
       ) * 100
     )
   : 0,
