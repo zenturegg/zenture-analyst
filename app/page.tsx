@@ -649,8 +649,12 @@ console.log("UPDATE ERROR:", error);
     return;
   }
 
-  setSquads([...squads, data as Squad]);
-  setForm({ name: "", tag: "", players: "" });
+  if (data) {
+  setSquads(
+    squads.map(s =>
+      s.id === editingId ? data : s
+    )
+  );
 }
 
   async function remove(id: string) {
