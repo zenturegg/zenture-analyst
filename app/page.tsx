@@ -593,36 +593,39 @@ function Squads({ squads, setSquads, isAdmin }: { squads: Squad[]; setSquads: (s
 
 async function add() {
   if (!form.name.trim()) return;
-  
-  if (editingId) {
-  const { error } = await supabase
-    .from("squads")
-    .update({
-      name: form.name,
-      tag: form.tag,
-      players: form.players,
-    })
-    .eq("id", editingId);
 
-  if (error) {
-    alert("Erro ao atualizar squad");
+  // EDITAR
+  if (editingId) {
+    const { error } = await supabase
+      .from("squads")
+      .update({
+        name: form.name,
+        tag: form.tag,
+        players: form.players,
+      })
+      .eq("id", editingId);
+
+    if (error) {
+      alert("Erro ao atualizar squad");
+      console.log(error);
+      return;
+    }
+
+    setSquads(
+      squads.map(s =>
+        s.id === editingId
+          ? { ...s, name: form.name, tag: form.tag, players: form.players }
+          : s
+      )
+    );
+
+    setEditingId(null);
+    setForm({ name: "", tag: "", players: "" });
+
     return;
   }
 
-  setSquads(
-    squads.map(s =>
-      s.id === editingId
-        ? { ...s, name: form.name, tag: form.tag, players: form.players }
-        : s
-    )
-  );
-
-  setEditingId(null);
-  setForm({ name: "", tag: "", players: "" });
-
-  return;
-}
-
+  // CRIAR NOVO
   const newSquad = {
     name: form.name,
     tag: form.tag,
@@ -630,31 +633,19 @@ async function add() {
   };
 
   const { data, error } = await supabase
-  .from("squads")
-  .update({
-    name: form.name,
-    tag: form.tag,
-    players: form.players,
-  })
-  .eq("id", editingId)
-  .select()
-  .single();
-
-console.log("UPDATE DATA:", data);
-console.log("UPDATE ERROR:", error);
+    .from("squads")
+    .insert(newSquad)
+    .select()
+    .single();
 
   if (error) {
-    alert("Erro ao salvar squad no Supabase");
+    alert("Erro ao salvar squad");
     console.log(error);
     return;
   }
 
-  if (data) {
-  setSquads(
-    squads.map(s =>
-      s.id === editingId ? data : s
-    )
-  );
+  setSquads([...squads, data]);
+  setForm({ name: "", tag: "", players: "" });
 }
 
   async function remove(id: string) {
