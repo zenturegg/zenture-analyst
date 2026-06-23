@@ -595,23 +595,21 @@ async function add() {
   if (!form.name.trim()) return;
 
   // EDITAR
-  if (editingId) {
-    const { data, error } = await supabase
-      .from("squads")
-      .update({
-        name: form.name,
-        tag: form.tag,
-        players: form.players,
-      })
-      .eq("id", editingId)
-      .select()
-      .single();
+ if (editingId) {
+  const { error } = await supabase
+    .from("squads")
+    .update({
+      name: form.name,
+      tag: form.tag,
+      players: form.players,
+    })
+    .eq("id", editingId);
 
-    if (error) {
-      alert("Erro ao atualizar squad");
-      console.log(error);
-      return;
-    }
+  if (error) {
+    alert("Erro ao atualizar squad");
+    console.log(error);
+    return;
+  }
 
     setSquads(
       squads.map(s =>
