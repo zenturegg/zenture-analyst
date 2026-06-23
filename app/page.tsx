@@ -596,14 +596,16 @@ async function add() {
 
   // EDITAR
   if (editingId) {
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("squads")
       .update({
         name: form.name,
         tag: form.tag,
         players: form.players,
       })
-      .eq("id", editingId);
+      .eq("id", editingId)
+      .select()
+      .single();
 
     if (error) {
       alert("Erro ao atualizar squad");
