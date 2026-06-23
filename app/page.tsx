@@ -611,6 +611,14 @@ async function add() {
     return;
   }
 
+   const { data: teste } = await supabase
+  .from("squads")
+  .select("*")
+  .eq("id", editingId)
+  .single();
+
+console.log("DADOS NO BANCO:", teste);
+   
     setSquads(
       squads.map(s =>
         s.id === editingId
